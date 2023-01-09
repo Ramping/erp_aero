@@ -1,6 +1,4 @@
-[[_TOC_]]
-
-# erp_aero
+# ERP Aero
 This repository contains the code for the test case
 
 ## Структура проекта
