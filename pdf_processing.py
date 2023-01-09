@@ -4,6 +4,7 @@ import os.path
 
 
 def read_pdf(pdf_file: str) -> dict:
+    """The method allows you to read a PDF file and convert the read data into a dictionary"""
     current_dir = os.path.dirname(os.path.abspath(__file__))
     tmp_dir = os.path.join(current_dir, 'tmp')
     if Path(pdf_file).suffix == '.pdf':
