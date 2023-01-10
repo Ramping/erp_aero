@@ -1,7 +1,7 @@
 # ERP Aero
 This repository contains the code for the test case
 
-## Структура проекта
+## Project structure
 The project is divided into the following main modules:
 
 pdf_processing - pdf data extraction module
