@@ -5,7 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
-
+tests/tmp.py
+test_task1.pdf
+test_task2.pdf
+test_task3.pdf
 # Distribution / packaging
 .Python
 .idea/
