@@ -33,17 +33,17 @@ class CheckPdf:
             }
         )
 
-    def tmp1(self, pdffiledata):
+    def _main_structure(self, pdffiledata):
         return self.cms.create_main_structure(pdffiledata)
 
-    def tmp2(self, pdffiledata, file_name):
+    def _checked_structure(self, pdffiledata, file_name):
         return self.cms.create_checked_file_structure(file_name, self.cms.create_main_structure(pdffiledata))
 
     def assertion_schema(self, pdffiledata):
         checking_files_list = os.listdir(cfp())
         if len(checking_files_list) > 0:
             for file_name in checking_files_list:
-                assert S(self.schema) == self.tmp2(pdffiledata, file_name)
+                assert S(self.schema) == self._checked_structure(pdffiledata, file_name)
         else:
             raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
         return self
@@ -52,7 +52,7 @@ class CheckPdf:
         checking_files_list = os.listdir(cfp())
         if len(checking_files_list) > 0:
             for file_name in checking_files_list:
-                assert list(self.tmp2(pdffiledata, file_name).keys()) == list(self.tmp1(pdffiledata).keys())
+                assert list(self._checked_structure(pdffiledata, file_name).keys()) == list(self._main_structure(pdffiledata).keys())
         else:
             raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
         return self
