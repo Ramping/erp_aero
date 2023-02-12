@@ -1,11 +1,14 @@
+import os
+from pytest_voluptuous import S
+from utils.path_generator import checked_files_path as cfp
 from voluptuous import Schema
-
 from check_pdf.model.controls.creating_file_structure import CreateFileStructure
 
 
 class CheckPdf:
 
     def __init__(self):
+        self.cms = CreateFileStructure()
         self.schema = Schema(
             {
                 'PN': str,
@@ -30,21 +33,26 @@ class CheckPdf:
             }
         )
 
-    def read_pdf(self, pdffiledata):
-        return CreateFileStructure().create_main_structure(pdffiledata)
+    def tmp1(self, pdffiledata):
+        return self.cms.create_main_structure(pdffiledata)
 
-    def presence_elements(self):
-        assert cp1.keys() == cp.keys()
+    def tmp2(self, pdffiledata, file_name):
+        return self.cms.create_checked_file_structure(file_name, self.cms.create_main_structure(pdffiledata))
 
-    def conformity_structure(self):
-        for i, k in zip_longest(cp, cp1):
-            assert i == k
+    def assertion_schema(self, pdffiledata):
+        checking_files_list = os.listdir(cfp())
+        if len(checking_files_list) > 0:
+            for file_name in checking_files_list:
+                assert S(self.schema) == self.tmp2(pdffiledata, file_name)
+        else:
+            raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
+        return self
 
-
-class TmpClass:
-
-    def tmpfunc(self, reference_file):
-        return CheckPdf().read_pdf(reference_file)
-
-    def read_pdf(self, pdffiledata):
-        return CreateFileStructure().create_checked_file_structure(pdffiledata)
+    def assertion_presence_of_elements(self, pdffiledata):
+        checking_files_list = os.listdir(cfp())
+        if len(checking_files_list) > 0:
+            for file_name in checking_files_list:
+                assert list(self.tmp2(pdffiledata, file_name).keys()) == list(self.tmp1(pdffiledata).keys())
+        else:
+            raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
+        return self

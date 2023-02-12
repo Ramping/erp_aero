@@ -1,27 +1,28 @@
-from check_pdf.model.object.pdf_processing import CheckPdf, CreateData
-from itertools import zip_longest
+import allure
 import pytest
 from check_pdf.model.data.pdf_data import PDFFileData
+from check_pdf.model.object.pdf_processing import CheckPdf
 
 
-# @pytest.mark.parametrize(
-#     "reference_file, checked_file, key_list",
-#     [
-#         (
-#             "test_task.pdf", ['test_task.pdf'],
-#             [
-#                 'PN:', 'SN:', 'DESCRIPTION:', 'LOCATION:', 'CONDITION:', 'RECEIVER#:', 'UOM:', 'EXP DATE:', 'PO:',
-#                 'CERT SOURCE:', 'REC.DATE:', 'MFG:', 'BATCH# :', 'DOM:', 'REMARK:', 'LOT# :', 'TAGGED BY:', 'Qty:',
-#                 'NOTES:'
-#             ]
-#         )
-#     ]
-# )
-# def test_check_pdf(reference_file, checked_file, key_list):
-#     reference_file = CreateData().create_reference_file_data(reference_file, key_list)
-#     checked_file = PDFFileData(checked_file, key_list)
-#     cp = CheckPdf().read_pdf(reference_file)
-#     cp1 = CheckPdf().read_pdf(checked_file)
-#     assert cp1.keys() == cp.keys(), 'presence of elements does not match'
-#     for i, k in zip_longest(cp, cp1):
-#         assert i == k, 'file structure does not match'
+class TestPDFFiles:
+    @pytest.mark.all_tests
+    @pytest.mark.pdf_test
+    @allure.tag('PDF')
+    @allure.label('owner', 'aapopov')
+    @allure.feature('Checking pdf files')
+    @allure.story('''Разработать метод, на вход которого подается PDF файл (сам файл предоставляется во вложении). 
+                    Нужно прочитать всю возможную информацию из файла и на выходе вернуть в виде словаря.
+                    Используя этот файл как эталон, разработать механизм, проверяющий входящие pdf-файлы на наличие
+                     всех элементов и соответствие структуры (расположение на листе). ''')
+    @pytest.mark.parametrize('reference_file_name, data', [('test_task.pdf', [
+        'PN:', 'SN:', 'DESCRIPTION:', 'LOCATION:', 'CONDITION:', 'RECEIVER#:', 'UOM:', 'EXP DATE:', 'PO:',
+        'CERT SOURCE:', 'REC.DATE:', 'MFG:', 'BATCH# :', 'DOM:', 'REMARK:', 'LOT# :', 'TAGGED BY:', 'Qty:',
+        'NOTES:'
+    ])])
+    def test_task_pdf(self, reference_file_name, data):
+        reference_file = PDFFileData(reference_file=reference_file_name, keys=data)
+        task_file = CheckPdf()
+        with allure.step(''):
+            assert task_file.assertion_schema(reference_file)
+        with allure.step(''):
+            assert task_file.assertion_presence_of_elements(reference_file)
