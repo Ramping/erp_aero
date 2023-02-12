@@ -9,7 +9,7 @@ class CheckPdf:
 
     def __init__(self):
         self.cms = CreateFileStructure()
-        self.schema = Schema(
+        self._schema = Schema(
             {
                 'PN': str,
                 'SN': str,
@@ -43,7 +43,7 @@ class CheckPdf:
         checking_files_list = os.listdir(cfp())
         if len(checking_files_list) > 0:
             for file_name in checking_files_list:
-                assert S(self.schema) == self._checked_structure(pdffiledata, file_name)
+                assert S(self._schema) == self._checked_structure(pdffiledata, file_name)
         else:
             raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
         return self
