@@ -19,3 +19,4 @@ def read_check_pdf(file):
             return pdf.pages[0].extract_text()
     else:
         raise ValueError(f'{file} - Invalid file format')
+

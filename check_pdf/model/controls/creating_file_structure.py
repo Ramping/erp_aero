@@ -34,3 +34,4 @@ class CreateFileStructure:
             return data
         except:
             raise ValueError('invalid file format or content')
+

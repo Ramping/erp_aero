@@ -56,3 +56,4 @@ class CheckPdf:
         else:
             raise FileNotFoundError('files to be checked are missing in the resources/need_check directory')
         return self
+
