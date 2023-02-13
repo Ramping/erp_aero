@@ -15,3 +15,4 @@ def checked_files_path():
 
 def checked_file(file_name):
     return os.path.join(checked_files_path(), file_name)
+
