@@ -6,6 +6,7 @@
 To work with the project, Python version 3.6 or higher is required.
 
 ## To check the files, you need to upload them to the check_pdf/resources/need_check directory
+If necessary, you can develop an automatic download from a web resource or database. Or implement parameterization with the path to the files being checked
 
 ## Installation and launch
 1. Download or clone the repository.
