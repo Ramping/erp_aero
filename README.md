@@ -33,4 +33,4 @@ allure serve
 ```
 
 ### Пример отчёта выполнения одного из автотестов
-![This is an image](/design/images/onecasereport.png)
+(https://raw.githubusercontent.com/python-discord/branding/main/events/christmas/server_icons/festive_256.gif)
