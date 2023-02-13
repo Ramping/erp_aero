@@ -5,6 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
+/allure-reports
+/allure-results
+README1.md
 tests/tmp.py
 test_task1.pdf
 test_task2.pdf
