@@ -36,5 +36,5 @@ allure serve
 ```
 
 ### An example of a report on the execution of one of the autotests
-![This is an image](screenshot_allure_results.png)
+![This is an image](screenshot_for_readme.png)
 
